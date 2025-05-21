@@ -17,84 +17,77 @@ document.addEventListener(
   { passive: false }
 );
 
-function handleLogin(event) {
-  event.preventDefault(); // Ngăn chặn hành vi submit mặc định
-  window.location.href = '../pages/homeAdmin.html';
-}
+// function handleLogin(event) {
+//   event.preventDefault(); 
+//   window.location.href = '../pages/homeAdmin.html';
+// }
 
 function goBack() {
-    window.history.back();
+  window.history.back();
 }
 
-fetch("../components/footer.html")
-  .then((response) => response.text())
-  .then((data) => {
-    document.getElementById("footer").innerHTML = data;
-  })
-  .catch((error) => console.error("Error loading footer:", error));
-
-fetch("../components/menuCustomer.html")
-  .then((response) => response.text())
-  .then((data) => {
-    document.getElementById("menu").innerHTML = data;
-  })
-  .catch((error) => console.error("Error loading footer:", error));
-
-  // Gio hang
-
-  let cartItems = [
-    { id: 1, name: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 150000, quantity: 1, image: "/assets/sachMau.png", selected: false },
-    { id: 2, name: "To Kill a Mockingbird", author: "Harper Lee", price: 120000, quantity: 1, image: "/assets/sachMau.png", selected: false }
-];
-
-function updateCart() {
-    const cartContainer = document.getElementById("cart-items");
-    cartContainer.innerHTML = "";
-    let total = 0;
-    cartItems.forEach(item => {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("cart-item");
-        itemElement.innerHTML = `
-            <input type="checkbox" onchange="toggleSelect(${item.id})" ${item.selected ? "checked" : ""} />
-            <img src="${item.image}" alt="${item.name}">
-            <div>
-                <h3>${item.name}</h3>
-                <p>Tác giả: ${item.author}</p>
-                <p>Giá: ${item.price.toLocaleString("vi-VN")} VND</p>
-            </div>
-            <div class="quantity-control">
-                <button onclick="updateQuantity(${item.id}, -1)">-</button>
-                <span>${item.quantity}</span>
-                <button onclick="updateQuantity(${item.id}, 1)">+</button>
-            </div>
-            <button class="remove" onclick="removeItem(${item.id})">Xóa</button>
-        `;
-        cartContainer.appendChild(itemElement);
-        if (item.selected) total += item.price * item.quantity;
+//GẮN GIAO DIỆN
+document.addEventListener("DOMContentLoaded", () => {
+  // Đợi đến khi header/menu được load xong
+  fetch("../components/headerCustomer.html")
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("top").innerHTML = data;
+      const username = localStorage.getItem("userName");
+      document.getElementById("username").textContent = username || "Guest";
     });
-    document.getElementById("total-price").innerText = total.toLocaleString("vi-VN");
-}
 
-function updateQuantity(id, delta) {
-    cartItems = cartItems.map(item => 
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
-    );
-    updateCart();
-}
+  fetch("../components/menuCustomer.html")
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("menu").innerHTML = data;
+      // Gắn sự kiện logout sau khi menu được gắn vào DOM
+      const logoutLink = document.getElementById("logout-link");
+      if (logoutLink) {
+        logoutLink.addEventListener("click", async function (e) {
+          e.preventDefault(); // Ngăn link chuyển trang ngay lập tức
 
-function removeItem(id) {
-    cartItems = cartItems.filter(item => item.id !== id);
-    updateCart();
-}
+          const sessionId = sessionStorage.getItem("sessionId");
 
-function toggleSelect(id) {
-    cartItems = cartItems.map(item => 
-        item.id === id ? { ...item, selected: !item.selected } : item
-    );
-    updateCart();
-}
+          try {
+            if (sessionId) {
+              await fetch("http://localhost:8080/api/qna/clear", {
+                method: "POST",
+                headers: {
+                  "X-Session-Id": sessionId,
+                },
+              });
+            }
 
-updateCart();
+            // Xóa session và local storage
+            sessionStorage.removeItem("sessionId");
+            localStorage.removeItem("token");
+            localStorage.removeItem("role");
+
+            // Điều hướng về trang đăng nhập
+            window.location.href = "../pages/login.html";
+          } catch (error) {
+            console.error("Lỗi khi đăng xuất:", error);
+            alert("Đăng xuất thất bại. Vui lòng thử lại!");
+          }
+        });
+      } else {
+        console.warn("Không tìm thấy phần tử 'logout-link'");
+      }
+    })
+    .catch((error) => console.error("Error loading footer:", error));
+
+  fetch("../components/footer.html")
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("footer").innerHTML = data;
+    })
+    .catch((error) => console.error("Error loading header:", error));
+});
+
+
+// Gio hang
+
 
 // chuyen khoan
 function toggleBankField() {
@@ -106,19 +99,19 @@ function toggleBankField() {
 
 //Tong tien
 
-function calculateTotal() {
-  let quantity = parseInt(document.getElementById("quantity").value);
-  let productPrice = parseInt(document.getElementById("product-price").value);
-  let tax = parseInt(document.getElementById("tax").value);
-  let shipping = parseInt(document.getElementById("shipping").value);
-  
-  let total = (productPrice * quantity) + tax + shipping;
-  
-  document.getElementById("total-price").innerText = `Tổng tiền: ${total.toLocaleString()} VND`;
-}
+// function calculateTotal() {
+//   let quantity = parseInt(document.getElementById("quantity").value);
+//   let productPrice = parseInt(document.getElementById("product-price").value);
+//   let tax = parseInt(document.getElementById("tax").value);
+//   let shipping = parseInt(document.getElementById("shipping").value);
+
+//   let total = (productPrice * quantity) + tax + shipping;
+
+//   document.getElementById("total-price").innerText = `Tổng tiền: ${total.toLocaleString()} VND`;
+// }
 
 // Tính ngay khi trang tải xong
-window.onload = calculateTotal;
+// window.onload = calculateTotal;
 
 //phan trang
 function changePage(step) {

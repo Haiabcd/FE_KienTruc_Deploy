@@ -1,146 +1,74 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Danh Sách Sản Phẩm</title>
-    <link rel="stylesheet" href="../assets//css/productAdmin.css" />
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="top">
-        <div class="logo-title">
-          <img src="../assets/logo.png" alt="Book Store Logo" />
-          <span class="title">Book Store</span>
-        </div>
-        <div class="right">
-          <span class="username">Anh Hải</span>
-          <img src="../assets/facebook.png" alt="Admin Avatar" class="avatar" />
-        </div>
-      </div>
-      <!-- Menu -->
-      <div id="menu"></div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="main">
-      <div class="container">
-        <h2>Danh sách sản phẩm</h2>
-        <div class="search-bar">
-          <input type="text" placeholder="Nhập tên, mã sản phẩm cần tìm..." />
-          <button class="btn btn-blue">Tìm kiếm</button>
-          <button
-            class="btn btn-green"
-            onclick="window.location.href='../pages/addProduct.html'"
-          >
-            Thêm sản phẩm
-          </button>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Mã</th>
-              <th>Ảnh</th>
-              <th>Tên</th>
-              <th>Giá</th>
-              <th>Số Lượng Tồn</th>
-              <th>Chức Năng</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>SP001</td>
-              <td><img src="../assets/sachMau.png" alt="Sách A" /></td>
-              <td>Sách A</td>
-              <td>100,000 VND</td>
-              <td>50</td>
-              <td>
-                <button
-                  class="btn btn-blue"
-                  onclick="window.location.href='../pages/updateProduct.html'"
-                >
-                  Cập nhật
-                </button>
-                <button class="btn btn-red">Xóa</button>
-              </td>
-            </tr>
-            <tr>
-              <td>SP002</td>
-              <td><img src="../assets/sachMau.png" alt="Sách B" /></td>
-              <td>Sách B</td>
-              <td>150,000 VND</td>
-              <td>30</td>
-              <td>
-                <button
-                  class="btn btn-blue"
-                  onclick="window.location.href='../pages/updateProduct.html'"
-                >
-                  Cập nhật
-                </button>
-                <button class="btn btn-red">Xóa</button>
-              </td>
-            </tr>
-            <tr>
-              <td>SP003</td>
-              <td><img src="../assets/sachMau.png" alt="Sách C" /></td>
-              <td>Sách C</td>
-              <td>200,000 VND</td>
-              <td>20</td>
-              <td>
-                <button
-                  class="btn btn-blue"
-                  onclick="window.location.href='../pages/updateProduct.html'"
-                >
-                  Cập nhật
-                </button>
-                <button class="btn btn-red">Xóa</button>
-              </td>
-            </tr>
-            <tr>
-              <td>SP004</td>
-              <td><img src="../assets/sachMau.png" alt="Sách C" /></td>
-              <td>Sách D</td>
-              <td>200,000 VND</td>
-              <td>20</td>
-              <td>
-                <button
-                  class="btn btn-blue"
-                  onclick="window.location.href='../pages/updateProduct.html'"
-                >
-                  Cập nhật
-                </button>
-                <button class="btn btn-red">Xóa</button>
-              </td>
-            </tr>
-            <tr>
-              <td>SP005</td>
-              <td><img src="../assets/sachMau.png" alt="Sách C" /></td>
-              <td>Sách E</td>
-              <td>200,000 VND</td>
-              <td>20</td>
-              <td>
-                <button
-                  class="btn btn-blue"
-                  onclick="window.location.href='../pages/updateProduct.html'"
-                >
-                  Cập nhật
-                </button>
-                <button class="btn btn-red">Xóa</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- Thanh phân trang -->
-        <div class="pagination" id="pagination">
-          <button onclick="changePage(-1)">Trước</button>
-          <span id="page-numbers"></span>
-          <button onclick="changePage(1)">Sau</button>
-        </div>
-      </div>
-    </main>
-    <!-- Footer -->
-    <footer id="footer"></footer>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danh Sách Sản Phẩm</title>
+  <link rel="stylesheet" href="../assets/css/admin/productAdmin.css" />
+</head>
 
-    <script src="../assets/js/homeAdmin.js"></script>
-  </body>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="top" id="top">
+
+    </div>
+    <!-- Menu -->
+    <div id="menu"></div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="container">
+      <h2>Danh sách sản phẩm</h2>
+      <div class="search-bar">
+        <select id="categoryFilter" name="category" aria-label="Chọn danh mục sản phẩm">
+          <option value="all">Tất cả</option>
+          <option value="Manga">Manga</option>
+          <option value="Văn Học Đương Đại">Văn Học Đương Đại</option>
+          <option value="Âm nhạc">Âm nhạc</option>
+          <option value="Kinh Tế">Kinh Tế</option>
+          <option value="Văn Học Tuổi Mới Lớn">Văn Học Tuổi Mới Lớn</option>
+          <option value="Tiểu thuyết">Tiểu thuyết</option>
+          <option value="Kinh dị">Kinh dị</option>
+        </select>
+        <input type="text" id="searchInput" placeholder="Tìm kiếm sản phẩm..." onkeyup="searchBooks()" />
+        <button class="btn btn-green" onclick="window.location.href='../pages/addProduct.html'">
+          Thêm sản phẩm
+        </button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Mã</th>
+            <th>Ảnh</th>
+            <th>Tên</th>
+            <th>Giá</th>
+            <th>Số Lượng Tồn</th>
+            <th>Danh Mục</th>
+            <th>Trạng Thái</th>
+            <th>Chức Năng</th>
+          </tr>
+        </thead>
+        <tbody id="product-list">
+        </tbody>
+      </table>
+      <!-- Thanh phân trang -->
+      <div class="pagination">
+        <button>Trước</button>
+        <span id="page-numbers"></span>
+        <button>Sau</button>
+      </div>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer id="footer"></footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" defer></script>
+  <script src="../service/api/apiClient.js" defer></script>
+  <script src="../assets/js/homeAdmin.js"></script>
+  <script src="../service/admin/product.js"></script>
+</body>
+
 </html>

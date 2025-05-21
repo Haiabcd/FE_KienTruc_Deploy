@@ -1,57 +1,46 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Book Store</title>
-    <link rel="stylesheet" href="../assets/css/homeCustomer.css" />
-    <link rel="stylesheet" href="../assets/css/chatbotCustomer.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <!-- Header -->
-    <header class="header">
-      <div class="top">
-        <div class="logo-title">
-          <img src="../assets/logo.png" alt="Book Store Logo" />
-          <span class="title">Book Store</span>
-        </div>
-        <div class="right">
-          <span class="username">Anh Hải</span>
-          <img src="../assets/facebook.png" alt="Admin Avatar" class="avatar" />
-        </div>
-      </div>
-      <!-- Menu -->
-      <div id="menu"></div>
-    </header>
 
-    <!-- Main Content -->
-    <main class="main">
-      <div class="chat-section">
-        <div class="chat-title">AI Chatbot</div>
-        <div id="chatbox">
-          <div id="messages" class="messages"></div>
-          <div class="input-area">
-            <textarea
-              id="userMessage"
-              placeholder="Hỏi bất kì điều gì?"
-            ></textarea>
-            <button id="sendBtn">Gửi</button>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Store</title>
+  <link rel="stylesheet" href="../assets/css/chatbotCustomer.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="top" id="top"></div>
+    <!-- Menu -->
+    <div id="menu"></div>
+  </header>
+  <!-- Main Content -->
+  <main class="main">
+    <div class="chat-container">
+      <div class="chat-header">BookBot - Trợ Lý Sách</div>
+      <div class="chat-box" id="chatBox">
+        <div class="chat-messages">
+          <div class="message received" data-time="Vừa xong">
+            Chào mừng bạn đến với Book Store! Tôi là BookBot, sẵn sàng giúp bạn tìm cuốn sách hoàn hảo. Bạn thích thể
+            loại sách nào? Ví dụ: tiểu thuyết, khoa học viễn tưởng, sách self-help...
           </div>
         </div>
       </div>
-    </main>
+      <div class="chat-input">
+        <input type="text" id="userInput" placeholder="Nhập tin nhắn..." />
+        <button onclick="sendMessage()">
+          <i class="fas fa-paper-plane"></i> Gửi
+        </button>
+      </div>
+    </div>
+  </main>
 
-    <!-- Footer -->
-    <footer id="footer"></footer>
+  <!-- Footer -->
+  <footer id="footer"></footer>
+  <script src="../service/totalCart.js"></script>
+  <script src="../assets/js/homeCustomer.js"></script>
+  <script src="../service/chatbot.js"></script>
+</body>
 
-    <!-- JavaScript imports -->
-    <script src="../assets/js/homeCustomer.js"></script>
-    <script src="../assets/js/chatbotCustomer.js"></script>
-  </body>
 </html>

@@ -3,22 +3,34 @@ body {
   flex-direction: column;
   width: 100%;
   height: auto;
+  background-color: #f0f3f7;
+  /* nền chung */
   touch-action: none;
 }
 
 /*header */
-/*header */
 .header {
   display: flex;
   flex-direction: column;
+  background-color: #bde5f2;
+  /* nền nhạt */
 }
+
 .top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* Căn giữa theo chiều dọc */
   width: 100%;
   padding: 13px 25px;
 }
+
+h1 {
+  font-size: 24px;
+  font-weight: 450;
+  color: #1e3a8a;
+}
+
 /*logo*/
 .logo-title {
   display: flex;
@@ -26,36 +38,25 @@ body {
   font-size: 24px;
   font-weight: bold;
 }
+
 .header img {
   height: 80px;
   width: 80px;
 }
+
 .header .title {
   font-size: 30px;
   font-weight: bold;
   margin-left: 10px;
 }
 
-/*right*/
-.right {
+/*button*/
+.header .buttons {
   display: flex;
   align-items: center;
+  /* Căn giữa các nút và icon */
 }
 
-.username {
-  margin-right: 8px;
-  font-size: 20px;
-  color: #555;
-  font-weight: bold;
-}
-
-.avatar {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-}
-
-/*button*/
 .header .buttons button {
   background-color: #3b82f6;
   color: white;
@@ -67,6 +68,12 @@ body {
   font-size: 18px;
 }
 
+.buttons button:hover {
+  background-color: #0284c7;
+  box-shadow: 0 0 10px #7dd3fc;
+  transform: scale(1.05);
+}
+
 .header .buttons button.register {
   background-color: #10b981;
 }
@@ -74,6 +81,10 @@ body {
 /*Content*/
 .main {
   width: 100%;
+  max-width: 88%;
+  /* giới hạn chiều ngang tối đa */
+  margin: 0 auto;
+  /* căn giữa ngang */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -82,7 +93,7 @@ body {
 
 .container {
   width: 100%;
-  height: 700px;
+  height: 800px;
   margin: 0 auto;
   background: white;
   padding: 20px;
@@ -90,6 +101,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: #f0f3f7;
+  /* nền chung */
 }
 
 .product-detail {
@@ -177,4 +190,34 @@ body {
 .back:hover {
   color: #3b82f6;
   cursor: pointer;
+}
+
+/*gio hang*/
+.cart-icon {
+  font-size: 30px;
+  color: black;
+  /* Màu xanh sáng hiện đại */
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 50%;
+  position: relative;
+  /* Để cho phần tử số lượng có thể được định vị */
+  transition: background-color 0.3s;
+}
+
+.cart-icon:hover {
+  background-color: rgba(79, 195, 247, 0.2);
+  /* Hover nhẹ */
+}
+
+.cart-count {
+  position: absolute;
+  top: -5px;
+  left: 28px;
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
