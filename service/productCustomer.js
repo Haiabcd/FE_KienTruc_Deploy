@@ -28,9 +28,6 @@
 
 
     books.forEach((book) => {
-      const fixedImageUrl = book.imageUrl.replace('http://', 'https://');
-      console.log('Fixed Image URL:', fixedImageUrl);
-
       if (book.stockQuantity <= 0 || book.status === false) {
         return;
       }
@@ -38,7 +35,7 @@
       bookElement.classList.add('product-item');
       bookElement.innerHTML = `
     <div style="position: relative; display: inline-block;">
-    <img src="${fixedImageUrl}" alt="${book.title}" class="product-image" />
+    <img src="${book.imageUrl.replace('http://', 'https://')}" alt="${book.title}" class="product-image" />
     ${book.discountPercent != null && book.discountedPrice != null && book.discountedPrice !== book.price
           ? `<div style="
             position: absolute;
