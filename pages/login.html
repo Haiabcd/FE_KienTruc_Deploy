@@ -1,0 +1,70 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Store</title>
+    <link rel="stylesheet" href="../assets//css/login.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="top">
+        <div class="logo-title">
+          <img src="../assets/logo.png" alt="Book Store Logo" />
+          <span class="title">Book Store</span>
+        </div>
+        <div class="buttons">
+          <button onclick="window.location.href='../pages/login.html'">
+            Đăng nhập
+          </button>
+          <button
+            class="register"
+            onclick="window.location.href='../pages/register.html'"
+          >
+            Đăng ký
+          </button>
+        </div>
+      </div>
+      <!-- Menu -->
+      <div id="menu"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="login-container">
+        <h2>Đăng nhập</h2>
+        <form class="login-form" onsubmit="handleLogin(event)">
+          <label for="username">Tài khoản</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="Số điện thoại or Email"
+          />
+          <span
+            id="username-error"
+            class="error-message"
+            style="color: red; display: block"
+          ></span>
+
+          <label for="password">Mật khẩu</label>
+          <input type="password" id="password" placeholder="Mật khẩu" />
+          <span
+            id="password-error"
+            class="error-message"
+            style="color: red; display: block"
+          ></span>
+
+          <button type="submit" class="login-btn">Đăng nhập</button>
+        </form>
+        <a href="../pages/forgotPassword.html" class="forgot-password"
+          >Quên mật khẩu?</a
+        >
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer id="footer"></footer>
+
+    <script src="../assets/js/home.js"></script>
+    <script src="../service/login.js"></script>
+  </body>
+</html>
