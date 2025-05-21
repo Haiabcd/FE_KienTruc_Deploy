@@ -23,11 +23,13 @@
     const productListElement = document.getElementById('product-list');
     productListElement.innerHTML = '';
 
-    const fixedImageUrl = book.imageUrl.replace('http://', 'https://');
-    // console.log('Fixed Image URL:', fixedImageUrl);
+
+
 
 
     books.forEach((book) => {
+      const fixedImageUrl = book.imageUrl.replace('http://', 'https://');
+      console.log('Fixed Image URL:', fixedImageUrl);
 
       if (book.stockQuantity <= 0 || book.status === false) {
         return;
