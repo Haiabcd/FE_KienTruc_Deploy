@@ -53,13 +53,30 @@
 
         orders.forEach(order => {
             const row = document.createElement("tr");
+
             row.innerHTML = `
                 <td>DH${order.id.toString().padStart(3, "0")}</td>
                 <td>${order.userName}</td>
                 <td>${convertOrderStatus(order.status)}</td>
-                <td>${convertPayment(order.paymentMethod)}</td>
-                <td>${new Date(order.createdAt).toLocaleDateString("vi-VN")}</td>
-                <td>${new Date(order.updatedAt).toLocaleDateString("vi-VN")}</td>
+                <td>${convertPayment(order.paymentMethod, order.status)}</td>
+               <td>${new Date(order.createdAt).toLocaleString("vi-VN", {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            })}</td>
+                <td>${new Date(order.updatedAt).toLocaleString("vi-VN", {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            })}</td>
                 <td>${order.phoneNumber}</td>
                 <td>
                     <select name="orderStatus" id="orderStatus-${order.id}" data-order-id="${order.id}" style="width: 180px;">
@@ -86,6 +103,16 @@
                     if (!response.ok) throw new Error("Lỗi khi cập nhật trạng thái");
                     const updatedOrder = await response.json();
                     row.children[2].textContent = convertOrderStatus(updatedOrder.status);
+                    row.children[5].textContent = convertOrderStatus(new Date(updatedOrder.updatedAt).toLocaleString("vi-VN", {
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit',
+                        hour12: false
+                    }));
+
                     selectElement.innerHTML = getValidStatusOptions(updatedOrder.status);
                 } catch (error) {
                     console.error("Cập nhật trạng thái lỗi:", error);
@@ -217,14 +244,18 @@
         }
     };
 
-    const convertPayment = (method) => method === "COD" ? "Chưa thanh toán" : "Đã thanh toán";
+    const convertPayment = (method, status) => {
+        if (status === "DELIVERED") return "Đã thanh toán";
+        return method === "COD" ? "Chưa thanh toán" : "Đã thanh toán";
+    };
+
 
     const getValidStatusOptions = (currentStatus) => {
         const optionsMap = {
             PLACED: ["CONFIRMED", "CANCELED"],
             CONFIRMED: ["SHIPPING", "CANCELED"],
             SHIPPING: ["DELIVERED"],
-            DELIVERED: ["REJECTED"],
+            DELIVERED: [],
             REJECTED: [],
             CANCELED: []
         };

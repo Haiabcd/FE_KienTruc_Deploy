@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.removeItem("role");
 
             // Điều hướng về trang đăng nhập
-            window.location.href = "../pages/login.html";
+            window.location.href = "/index.html";
           } catch (error) {
             console.error("Lỗi khi đăng xuất:", error);
             alert("Đăng xuất thất bại. Vui lòng thử lại!");

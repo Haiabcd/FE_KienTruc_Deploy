@@ -1,4 +1,3 @@
-
 // Tạo hoặc lấy sessionId
 let sessionId = sessionStorage.getItem('sessionId');
 if (!sessionId) {
@@ -27,6 +26,14 @@ async function loadChatHistory() {
 
         // Xóa tin nhắn mặc định
         chatMessages.innerHTML = '';
+
+        if (messages.length === 0) {
+            const welcomeMsg = document.createElement('div');
+            welcomeMsg.className = 'message received';
+            welcomeMsg.setAttribute('data-time', new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }));
+            welcomeMsg.textContent = 'Chào bạn tôi là AI thông minh. Hãy cho tôi biết tâm trạng của bạn. Tôi sẽ đưa ra những quyển sách phù hợp với bạn.';
+            chatMessages.appendChild(welcomeMsg);
+        }
 
         // Thêm tin nhắn từ lịch sử
         messages.forEach(msg => {
@@ -85,12 +92,23 @@ async function sendMessage() {
 
             const data = await response.text();
 
-            // Add bot response
+            // Add bot response with typing effect
             const botMessage = document.createElement('div');
             botMessage.className = 'message received';
             botMessage.setAttribute('data-time', new Date().toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }));
-            botMessage.textContent = data || 'Xin lỗi, tôi không thể trả lời ngay bây giờ. Hãy thử lại!';
             chatBox.querySelector('.chat-messages').appendChild(botMessage);
+
+            let i = 0;
+            function typeChar() {
+                if (i < data.length) {
+                    botMessage.textContent += data.charAt(i);
+                    i++;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    setTimeout(typeChar, 20); // tốc độ gõ
+                }
+            }
+            typeChar();
+
         } catch (error) {
             console.error('Error calling API:', error);
             loadingMessage.remove();

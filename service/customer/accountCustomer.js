@@ -144,14 +144,16 @@ async function updateUser(event) {
         localStorage.setItem("userName", fullName);
     }
 
+
     // Cập nhật thông tin cá nhân
     const updateUserRequest = {
         fullName: fullName,
-        email: email,
+        email: email !== "" ? email : null,
         dob: null,
     };
 
     try {
+        console.log("Cập nhật thông tin cá nhân:", updateUserRequest);
         const response = await fetch("http://localhost:8080/api/user/update", {
             method: "PUT",
             headers: {

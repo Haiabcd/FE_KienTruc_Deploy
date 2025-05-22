@@ -41,7 +41,7 @@
     `;
     document.head.appendChild(style);
 
-    // Hàm fetch đơn hàng theo trang
+    // Hàm fetch khách hàng theo trang
     const fetchPagedCustomers = async (page = 0, size = pageSize, phoneNumber = '') => {
         try {
             const url = new URL('http://localhost:8080/api/user/paged');
@@ -84,6 +84,10 @@
 
         list.forEach(c => {
             const row = document.createElement("tr");
+            if (c.phoneNumber === '0936190642') {
+                return;
+            }
+
             row.innerHTML = `
                 <td>KH${c.id}</td>
                 <td style="text-align: left;">${c.fullName}</td>

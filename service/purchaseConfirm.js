@@ -178,6 +178,8 @@ document.getElementById("confirmPurchaseBtn").addEventListener("click", async fu
     // Nếu có lỗi thì không chuyển trang
     if (hasError) return;
 
+
+
     let pay = "";
     if (paymentSelectText === "Thanh toán khi nhận hàng") {
         pay = "COD";
@@ -261,7 +263,7 @@ function showError(fieldId, message) {
 }
 // Xóa tất cả lỗi
 function clearAllErrors() {
-    const errorFields = ["receiverName", "phone", "email"];
+    const errorFields = ["receiverName", "phone", "email", "address"];
     errorFields.forEach(id => {
         const el = document.getElementById(`error-${id}`);
         if (el) el.textContent = "";

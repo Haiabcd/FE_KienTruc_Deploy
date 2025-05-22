@@ -153,7 +153,7 @@ async function updateUser(event) {
     // Cập nhật thông tin cá nhân
     const updateUserRequest = {
         fullName: fullName,
-        email: email,
+        email: email !== "" ? email : null,
         dob: null,
     };
 
